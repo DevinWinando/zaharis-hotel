@@ -1,0 +1,129 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: "Poppins", sans-serif !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.form-signin {
+    display: inline-flex;
+    width: 100%;
+    max-width: 950px;
+    padding: 15px;
+    margin: auto;
+}
+.h3 {
+    font-weight: 900 !important;
+}
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-floating input {
+    color: white !important;
+    margin-bottom: 15px;
+    background-color: #0f4c75 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    border-bottom: 2px solid white !important;
+    border-radius: 0 !important;
+}
+.form-floating input:active {
+    color: white !important;
+    margin-bottom: 15px;
+    background-color: #0f4c75 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    border-bottom: 2px solid white !important;
+    border-radius: 0 !important;
+}
+.form-floating input:focus {
+    box-shadow: none !important;
+}
+.tgh {
+    width: 400px;
+    background-color: #0f4c75;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 25px;
+}
+.pgr {
+    width: 550px;
+    background-color: #bbe1fa;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    overflow: hidden;
+}
+.ftr {
+    background-color: #22313a;
+    width: 100%;
+    padding: 5px 0;
+    position: absolute;
+    bottom: 20px;
+}
+.ftr p {
+    margin-bottom: 0 !important;
+}
+.dft {
+    margin-top: 10px;
+}
+.pjls {
+    padding: 10px;
+    color: #1b262c;
+    font-weight: 900;
+    width: 531.67px;
+    position: absolute;
+    top: 47%;
+    z-index: 99;
+}
+.dtsw {
+    padding: 10px;
+    color: #1b262c;
+    font-weight: 900;
+    width: 531.67px;
+    position: absolute;
+    top: 42%;
+    z-index: 99;
+}
+.ey {
+    float: right;
+    margin-right: 10px;
+    margin-top: -48px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+.form-signin input:autofill {
+    margin: 15px 0;
+    background-color: #0f4c75 !important;
+    border: none !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    margin: 15px 0;
+    background-color: #0f4c75 !important;
+    border: none !important;
+    border-bottom: 2px solid white !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    color: white;
+    box-shadow: 0 0 0 30px #0f4c75 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #0f4c75 inset !important;
+    -webkit-text-fill-color: white;
+}

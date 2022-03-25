@@ -1,0 +1,15 @@
+/* pesan */
+
+.card .img-kamar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card .card-title {
+    margin-bottom: 0;
+}
+
+.card .nomor-kamar {
+    margin-bottom: 0.5rem;
+}
