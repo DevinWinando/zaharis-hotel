@@ -63,7 +63,7 @@
     </section>
 
     <section id="pesan">
-        <form action="kamar/pesan">
+        <form action="/kamar/pesan">
             <div class="container">
                 <div class="row justify-content-center position-sticky">
                     <div class="col-12">
@@ -71,10 +71,10 @@
                             <div class="py-5 px-5 d-flex justify-content-center">
                                 <div class="select me-3">
                                     <label for="mulai" class="ms-2">Tipe Kamar</label>
-                                    <select name="tipe" class="form-control frm" style="border: 0" id="floatingInput" onchange="location = this.value">
-                                        <option value="" selected disabled hidden >-Pilih Tipe-</option>
+                                    <select name="tipe" class="form-control frm" id="floatingInput" onchange="location = this.value">
+                                        <option value="" disabled selected hidden >-Pilih Tipe-</option>
                                         @foreach($tipeKamar as $item)
-                                            <option value="/tipe/{{ $item->id }}" >{{ $item->nama }}</option>
+                                        <option @if ($item->id == $id) value="{{ $item->id }}"  selected @endif value="/tipe/{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -121,7 +121,8 @@
                                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                                     <strong>Rp. {{ $item->harga }}/malam</strong>
                                                     <div>
-                                                        <button class="btn btn-primary" disabled>Pesan</button>
+                                                        <input type="checkbox"  class="btn-check" id="btn-check-{{ $loop->iteration }}" name="kamar[]" value="{{ $item->id }}">
+                                                        <label class="btn btn-primary" for="btn-check-{{ $loop->iteration }}">Pesan</label>
                                                     </div>
                                                 </div>
                                             </div>

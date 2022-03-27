@@ -29,17 +29,16 @@
         <div class="header p-4 mx-4">
             <h2>Zaharis</h2>
         </div>
-        {{ dd($reservasi) }}
         <div class="kwtn mx-4">
             <div class="atas px-5 py-5 d-flex justify-content-between">
                 <div class="nama float-left">
                     <h3 class="text-black-50">Client</h3>
-                    <h2>{{ $reservasi->client->nama }}</h2>
+                    <h2>{{ $reservasi[0]->client->nama }}</h2>
                 </div>
                 <div class="d-flex logo2 float-right tex-right align-self-end">
                     <div class="kanan text-end">
-                        <h3 class="text-black-50">Kamar</h3>
-                        <h2 class="align right">No {{ $reservasi->kamar->nomor }}</h2>
+                        <h3 class="text-black-50">Jumlah Kamar</h3>
+                        <h2 class="align right">{{ $jumlahKamar }}</h2>
                     </div>
                 </div>
             </div>
@@ -47,25 +46,21 @@
                 <div class="mb-5 d-flex justify-content-between">
                     <div class="kiri">
                         <h3 class="text-black-50">Check In</h3>
-                        <h2>{{ $reservasi->mulai }}</h2>
+                        <h2>{{ $reservasi[0]->mulai }}</h2>
                     </div>
                     <div class="kanan">
                         <h3 class="text-black-50 text-end">Check Out</h3>
-                        <h2>{{ $reservasi->selesai }}</h2>
+                        <h2>{{ $reservasi[0]->selesai }}</h2>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
                     <div class="kiri col-4">
                         <h3 class="text-black-50">Jenis Room</h3>
-                        <h2>{{ $reservasi->kamar->tipe }}</h2>
-                    </div>
-                    <div class="kanan col justify-content-center text-center">
-                        <h3 class="text-black-50 text-center">Tipe Bed</h3>
-                        <h2>{{ $reservasi->kamar->bed }}</h2>
+                        <h2>{{ $reservasi[0]->kamar->tipe->nama }}</h2>
                     </div>
                     <div class="kanan col text-end">
                         <h3 class="text-black-50 ">Harga Total</h3>
-                        <h2>{{ $reservasi->harga_total }}</h2>
+                        <h2>{{ $reservasi[0]->harga_total }}</h2>
                     </div>
                 </div>
             </div>

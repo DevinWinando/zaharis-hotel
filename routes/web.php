@@ -22,21 +22,23 @@ Route::get('/', [ClientController::class, 'index'])->name('home');
 Route::get('/kamar/pesan', [ClientController::class, 'showReservationForm']);
 Route::post('/kamar/pesan', [ClientController::class, 'reservation']);
 
+Route::get('tipe/{id}', [ClientController::class, 'tipe']);
+
 Route::get('/reservasi/{reservasi}/receipt', [ClientController::class, 'printReceipt']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('admin/logout', [AuthController::class, 'logout']);
-    Route::get('admin/dashboard', [KamarController::class, 'index'])->name('dashboard');
+    Route::get('admin/dashboard', [KamarController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('/admin/kamar', KamarController::class);
-
     route::resource('/admin/tipe-kamar', TipeKamarController::class);
-
-    Route::get('/admin/reservasi', [ReservasiController::class, 'index']);
-    Route::get('/admin/reservasi/{reservasi}', [ReservasiController::class, 'detail']);
+    
+    Route::get('resepsionis/dashboard', [ReservasiController::class, 'index'])->name('resepsionis.dashboard');
+    
+    Route::get('/resepsionis/reservasi', [ReservasiController::class, 'index']);
+    Route::post('resepsionis/reservasi', [ReservasiController::class, 'proses']);
+    // Route::get('/admin/reservasi/{reservasi}', [ReservasiController::class, 'detail']);
 });
 
-Route::get('admin/login', [AuthController::class, 'showFormLogin'])->name('login');
-Route::get('admin', [AuthController::class, 'showFormLogin']);
-Route::post('admin', [AuthController::class, 'login']);
-Route::post('admin/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);

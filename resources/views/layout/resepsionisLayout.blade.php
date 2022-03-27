@@ -34,7 +34,7 @@
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
                                             <h6 class="mb-0 text-gray-600">{{ Auth::user()->username }}</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                            <p class="mb-0 text-sm text-gray-600">Resepsionis</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -62,38 +62,26 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a href="#" class="burger-btn d-block d-xl-none">
+                            <a href="#" class="burger-btn d-block d-xl-none d-print-none">
                                 <i class="bi bi-justify fs-3"></i>
                             </a>
                             
                         </div>
                     </div>
                 </div>
-                <nav class="main-navbar">
+                <nav class="main-navbar d-print-none">
                     <div class="container">
                         <ul>
                             <li class="menu-item">
-                                <a href="/admin/dashboard" class='menu-link'>
+                                <a href="/resepsionis/dashboard" class='menu-link'>
                                     <i class="bi bi-grid-fill mb-1"></i>
                                     <span >Dashboard</span>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="/admin/kamar" class='menu-link'>
+                                <a href="/resepsionis/reservasi" class='menu-link'>
                                     <i class="bi bi-grid-fill mb-1"></i>
-                                    <span>Kamar</span>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/admin/tipe-kamar" class='menu-link'>
-                                    <i class="bi bi-grid-fill mb-1"></i>
-                                    <span>Tipe Kamar</span>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/admin/reservasi" class='menu-link'>
-                                    <i class="bi bi-grid-fill mb-1"></i>
-                                    <span>Reservasi</span>
+                                    <span >Reservasi</span>
                                 </a>
                             </li>
                         </ul>
@@ -104,22 +92,7 @@
 
             <div class="content-wrapper container">
                 @yield('main')
-
             </div>
-
-            <footer>
-                <div class="container">
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2021 &copy; Devin Winando</p>
-                        </div>
-                        <div class="float-end">
-                            <p>template by <a
-                                    href="http://ahmadsaugi.com">A. Saugi</a></p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 

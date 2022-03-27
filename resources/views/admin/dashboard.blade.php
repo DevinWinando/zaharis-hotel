@@ -1,92 +1,58 @@
-@extends('layout.layout')
+@extends('layout.adminLayout')
 
 @section('title', 'Admin - Dashboard')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('css/admin/kamar.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}" />
 @endpush
 
 @section('main')
-<h3>Kelola Kamar</h3>
-<div class="row mt-4">
-    <div class="col-12 d-flex justify-content-end mb-3">
-        <a href="/admin/kamar/create" class="btn btn-primary me-2">Tambah Kamar</a>
-    </div>
-    @foreach($kamar as $item)
-        @if($item->dipesan)
-            <div class="col-6 ">
-                <div class="card mb-3 shadow" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4 gambar-wrapper">
-                            <img src="{{ asset('images/kamar/'.$item->gambar) }}"
-                                class="img-kamar rounded-start" alt="Kamar">
-                        </div>
-                        <div class="col-md-8 card-text">
-                            <div class="card-body">
-                                <div class="wrapper">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title"><em>{{ $item->tipeKamar->nama }}</em> </h5>
-                                        <span class="badge bg-secondary">dipesan</span>
-                                    </div>
-                                    <label class="card-text nomor-kamar"><small class="text-muted">No.
-                                            {{ $item->nomor }}</small></label>
-                                    <p class="card-text">{{ $item->deskripsi }}</p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <strong>Rp. {{ $item->harga }}/malam</strong>
-                                    <div class="d-flex gap-1">
-                                        <form action="/admin/kamar/{{ $item->id }}" method="post"
-                                            style="display: inline-block;">
-                                            @method('delete')
-                                            @csrf
-                                            <button class="btn btn-danger border-0">Hapus</button>
-                                        </form>
-                                        <a href="/admin/kamar/{{ $item->id }}/edit" class="btn btn-info">Edit</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @else
-            <div class="col-6 ">
-                <div class="card mb-3 shadow" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4 gambar-wrapper">
-                            <img src="{{ asset('images/kamar/'.$item->gambar) }}"
-                                class="img-kamar rounded-start" alt="Kamar">
-                        </div>
-                        <div class="col-md-8 card-text">
-                            <div class="card-body">
-                                <div class="wrapper">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title"><em>{{ $item->tipeKamar->nama }}</em> </h5>
-                                        <span class="badge bg-success">tersedia</span>
-                                    </div>
-                                    <label class="card-text nomor-kamar"><small class="text-muted">No.
-                                            {{ $item->nomor }}</small></label>
-                                    <p class="card-text">{{ $item->deskripsi }}</p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <strong>Rp. {{ $item->harga }}/malam</strong>
-                                    <div class="d-flex gap-1">
-                                        <form action="/admin/kamar/{{ $item->id }}" method="post"
-                                            style="display: inline-block;">
-                                            @method('delete')
-                                            @csrf
-                                            <button class="btn btn-danger border-0">Hapus</button>
-                                        </form>
-                                        <a href="/admin/kamar/{{ $item->id }}/edit" class="btn btn-info">Edit</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        @endif
-    @endforeach
+<div class="d-flex justify-content-between">
+    <h3>Data Kamar</h3>
+    <button class="btn btn-primary d-print-none" onclick="window.print()">Print</button>
+</div>
+<div class="table-responsive mt-4">
+    <table class="table table-borderless table-hover" id="tabel-reservasi">
+        <thead>
+            <tr>
+                <th>Nomor</th>
+                <th>Tipe</th>
+                <th>Harga</th>
+                <th>Status</th>
+                <th class="d-print-none">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($kamar as $item)
+                <tr>
+                    <td>{{ $item->nomor }}</td>
+                    <td class="text-bold-500">{{ $item->tipe->nama }}</td>
+                    <td>{{ $item->harga }}</td>
+                    @if ($item->dipesan == 0)
+                        <td class="text-bold-500">
+                            <div class="badge bg-success">Tersedia</div>    
+                        </td>    
+                        @else
+                        <td class="text-bold-500">
+                            <div class="badge bg-secondary">Dipesan</div>    
+                        </td>
+                    @endif
+                    <td class="d-print-none">
+                        <a href="reservasi/{{ $item->id }}" class="badge bg-primary link-light">Detail</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection
+
+@push('script')
+
+    <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
+    <script>
+        const tabel = document.querySelector('#tabel-reservasi');
+        const dataTable = new simpleDatatables.DataTable(tabel)
+    </script>
+@endpush

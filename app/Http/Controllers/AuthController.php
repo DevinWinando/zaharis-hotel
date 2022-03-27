@@ -9,9 +9,14 @@ class AuthController extends Controller
 {
     public function showFormLogin(){
         if(Auth::check()){
-            return redirect()->route('dashboard');
+            if(Auth::user()->role == 'admin'){
+                return redirect()->route('admin.dashboard');
+            }else if(Auth::user()->role == 'resepsionis'){
+                return redirect()->route('resepsionis.dashboard');
+            }
         }
-        return view('admin/login');
+        
+        return view('/login');
     }
 
     public function login(Request $request){
@@ -27,17 +32,17 @@ class AuthController extends Controller
         if(Auth::attempt($data)){
             if(Auth::user()->role == 'admin'){
                 return redirect('admin/dashboard');
-            }else{
+            }else{ 
                 return redirect('resepsionis/dashboard');
             }
             // return redirect('/admin/dashboard');
         }else{
-            return redirect('/admin/login');
+            return redirect('/login')->with('error', 'Username atau Password salah');
         }
     }
 
     public function logout(){
         Auth::logout();
-        return redirect('/admin/login');
+        return redirect('/login');
     }
 }   

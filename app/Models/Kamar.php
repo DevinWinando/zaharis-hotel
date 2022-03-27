@@ -12,7 +12,7 @@ class Kamar extends Model
     protected $table = 'kamar';
     protected $fillable = ['nomor', 'harga', 'deskripsi', 'id_tipe', 'gambar', 'dipesan'];
 
-    public function tipeKamar(){
+    public function tipe(){
         return $this->belongsTo(TipeKamar::class, 'id_tipe');
     }
 }

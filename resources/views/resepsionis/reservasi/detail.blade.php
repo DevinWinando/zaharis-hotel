@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-12">
                             <h4>Pemesan</h4>
-                            <table class="table table-hover table-borderless mb-0 text-center">
+                            <table class="table table-hover table-bordered mb-0 text-center">
                                 <thead>
                                     <tr>
                                         <th class="text-start">No</th>
@@ -33,23 +33,21 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-12">
-                            <h4>Pemesan</h4>
-                            <table class="table table-hover table-borderless mb-0 text-center">
+                        <div class="col-12 mt-4">
+                            <h4>Kamar</h4>
+                            <table class="table table-hover table-bordered mb-0 text-center">
                                 <thead>
                                     <tr>
-                                        <th class="text-start">No</th>
-                                        <th>Nama</th>
-                                        <th>No. Telepon</th>
-                                        <th>Email</th>
+                                        <th class="text-start">Nomor Kamar</th>
+                                        <th>Tipe Kamar</th>
+                                        <th>Harga</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="text-bold-500 text-start">1</td>
-                                        <td>{{ $reservasi->client->nama }}</td>
-                                        <td class="text-bold-500">{{ $reservasi->client->telepon }}</td>
-                                        <td>{{ $reservasi->client->email }}</td>
+                                        <td>{{ $reservasi->kamar->nomor }}</td>
+                                        <td class="text-bold-500">{{ $reservasi->kamar->tipe->nama }}</td>
                                     </tr>
                                 </tbody>
                             </table>

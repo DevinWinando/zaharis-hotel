@@ -86,6 +86,18 @@
             </form>
         </div>
     </main>
+    
+    @if (session('error'))
+    <div class="position-absolute">
+        <div class="d-flex justify-content-center align-items-center" style="width: 100vw">
+            <div class="alert alert-danger alert-dismissible show fade">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <script>
         var state = false;
 
@@ -100,8 +112,11 @@
                 state = true;
             }
         }
-
     </script>
+
+    <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

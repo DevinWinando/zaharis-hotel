@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('password');
+            $table->string('role');
             $table->timestamps();
-            $table->foreignId('id_level')->constrained('level');
         });
     }
 

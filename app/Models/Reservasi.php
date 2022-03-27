@@ -11,7 +11,7 @@ class Reservasi extends Model
 
     protected $table = 'reservasi';
     protected $fillable = [
-        'id_kamar', 'id_client', 'mulai', 'selesai', 'harga_total'
+        'id_kamar', 'id_client', 'mulai', 'selesai', 'harga_total', 'token'
     ];
 
     public function kamar()

@@ -8,6 +8,8 @@ use App\Models\Reservasi;
 use App\Models\Client;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\TipeKamar;
 
 use Illuminate\Support\Carbon;
@@ -18,7 +20,13 @@ class ClientController extends Controller
     {
         $kamar = Kamar::all();
         $tipeKamar = TipeKamar::all();
-        return view('index', compact('kamar','=', 'tipeKamar'));
+        return view('index', compact('kamar', 'tipeKamar'));
+    }
+
+    public function tipe($id){
+        $tipeKamar = TipeKamar::all();
+        $kamar = Kamar::where('id_tipe', $id)->get();
+        return view('tipe', compact('kamar', 'tipeKamar', 'id'));
     }
 
     public function showReservationForm(Request $request)
@@ -30,8 +38,6 @@ class ClientController extends Controller
     public function reservation(Request $request)
     {
         $uuid = Str::uuid();
-        
-        
         $request->validate([
             'nama' => 'required',
             'email' => 'required',
@@ -48,36 +54,41 @@ class ClientController extends Controller
         $interval = $mulai->diffInDays($selesai);
         
         $harga_total = $interval * $hargaTipe * $jumlahKamar;
+
+        DB::beginTransaction();
+
+        try{
+            $idClient = Client::insertGetId([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'telepon' => $request->telepon,
+            ]);
+    
+            foreach($request->kamar as $kamar) {
+                Reservasi::insert([
+                    'id_client' => $idClient,
+                    'id_kamar' => $kamar,
+                    'mulai' => $request->mulai,
+                    'selesai' => $request->selesai,
+                    'harga_total' => $harga_total,
+                    'token' => $uuid,
+                    'status' => 'diproses',
+                ]);
+    
+                Kamar::where('id', $kamar)->update([
+                    'dipesan' => 1,
+                ]);
+            }
+
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('error', 'Gagal melakukan reservasi');
+        }
         
-        // $idClient = Client::insertGetId([
-        //     'nama' => $request->nama,
-        //     'email' => $request->email,
-        //     'telepon' => $request->telepon,
-        // ]);
-
-        // foreach($request->kamar as $kamar) {
-        //     Reservasi::insert([
-        //         'id_client' => $idClient,
-        //         'id_kamar' => $kamar,
-        //         'mulai' => $request->mulai,
-        //         'selesai' => $request->selesai,
-        //         'harga_total' => $harga_total,
-        //     ]);
-        // }
-
-        // $idReservasi = Reservasi::insertGetId([
-        //     'id_kamar' => $id,
-        //     'id_client' => $idClient,
-        //     'mulai' => $request->mulai,
-        //     'selesai' => $request->selesai,
-        //     'harga_total' => $harga_total,
-        // ]);
-
-        // Kamar::where('id', $id)->update([
-        //     'dipesan' => '1',
-        // ]);
         
-        return redirect("/reservasi/4c20ed17-e592-4a00-a238-ab5d517462a9/receipt");
+        
+        return redirect("/reservasi/$uuid/receipt");
     }
 
     public function receipt(Reservasi $reservasi)
@@ -86,10 +97,9 @@ class ClientController extends Controller
     }
 
     public function printReceipt($reservasi){
-        // $pdf = PDF::loadView('receipt', compact('reservasi'));
-        // return $pdf->download('receipt.pdf');
         $reservasi = Reservasi::where('token', $reservasi)->get();
+        $jumlahKamar = sizeof($reservasi);
 
-        return view('receipt', compact('reservasi'));
+        return view('receipt', compact('reservasi', 'jumlahKamar'));
     }
 }
